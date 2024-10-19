@@ -4,6 +4,9 @@ import requests
 
 
 class VacanciesAPI(ABC):
+    """
+    Абстрактный класс для вакансий.
+    """
     @abstractmethod
     def get_vacancies(self, search_query, page=0, per_page=20):
         pass
