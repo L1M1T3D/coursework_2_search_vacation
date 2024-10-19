@@ -3,7 +3,6 @@ from src.json_creator import JSONVacancyStorage
 from src.vacancies import Vacancy
 
 
-# Функция для взаимодействия с пользователем
 def user_interaction():
     """
     Функция для взаимодействия с пользователем, в которой пользователь последовательно вводит данные
@@ -12,7 +11,6 @@ def user_interaction():
     api = HHVacancyAPI()
     storage = JSONVacancyStorage()
 
-    # Шаг 1: Ввод поискового запроса
     query = input("Введите поисковый запрос для вакансий: ")
     vacancies_data = api.get_vacancies(query)
     for item in vacancies_data["items"]:
@@ -21,18 +19,15 @@ def user_interaction():
         storage.add_vacancy(vacancy)
     print("Вакансии сохранены в файл.")
 
-    # Шаг 2: Получение топ N вакансий по зарплате
     n = int(input("Введите количество вакансий для отображения по зарплате: "))
     top_vacancies = storage.get_vacancies(top_n=n)
     print(f"\nТоп {n} вакансий по зарплате:")
     for v in top_vacancies:
         print(v)
 
-    # Шаг 3: Поиск вакансий по нескольким ключевым словам
     keywords = input("\nВведите ключевые слова для поиска вакансий (через запятую): ").split(",")
-    keywords = [kw.strip() for kw in keywords]  # Убираем лишние пробелы
+    keywords = [kw.strip() for kw in keywords]
     filtered_vacancies = storage.get_vacancies(filter_keyword=keywords)
-    # Проверяем, найдены ли вакансии
     if not filtered_vacancies:
         print(f"\nВакансии, содержащие ключевые слова: {', '.join(keywords)} не найдены.")
     else:
